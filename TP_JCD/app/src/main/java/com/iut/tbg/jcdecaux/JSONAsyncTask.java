@@ -2,6 +2,9 @@ package com.iut.tbg.jcdecaux;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.iut.tbg.jcdecaux.model.Contract;
@@ -25,8 +28,11 @@ public class JSONAsyncTask extends AsyncTask {
     public static final int KEYCODE_GET_CONTRACTS_ALL = 235;
     public static final int KEYCODE_GET_STATIONS_ALL = 246;
     public static final int KEYCODE_GET_STATIONS_FROM_CONTRACT = 257;
+    public static final int KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT = 268;
 
     private TextView tv_Result;
+    private ArrayList list;
+    private ArrayAdapter adapter;
 
     @Override
     protected String doInBackground(Object... params) {
@@ -38,7 +44,7 @@ public class JSONAsyncTask extends AsyncTask {
          * @param TextView *result-textview*  => params[2]
          *
          */
-        if(params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_FROM_CONTRACT) {
+        if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_FROM_CONTRACT) {
 
             String request = "https://api.jcdecaux.com/vls/v1/stations?";
             request += "contract=" + (String) params[1];
@@ -53,21 +59,21 @@ public class JSONAsyncTask extends AsyncTask {
                 URL url_JCD = new URL(request);
                 HttpsURLConnection con_JCD = (HttpsURLConnection) url_JCD.openConnection();
 
-                if(con_JCD.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                if (con_JCD.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
                     BufferedReader in = new BufferedReader(new InputStreamReader(con_JCD.getInputStream()));
                     String aux = "";
 
                     StringBuilder builder = new StringBuilder();
-                    while ((aux = in.readLine()) != null) { builder.append(aux); }
+                    while ((aux = in.readLine()) != null) {
+                        builder.append(aux);
+                    }
 
                     str_JSON = builder.toString();
 
                 }
 
-            }
-
-            catch(Exception e) {
+            } catch (Exception e) {
 
                 str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
 
@@ -80,7 +86,7 @@ public class JSONAsyncTask extends AsyncTask {
                 JSONArray stationsJSON = new JSONArray(str_JSON);
                 ArrayList<Station> stationsOBJ = new ArrayList<>();
 
-                for(int i=0; i<stationsJSON.length(); i++) {
+                for (int i = 0; i < stationsJSON.length(); i++) {
 
                     JSONObject stationJSON = stationsJSON.getJSONObject(i);
 
@@ -109,14 +115,106 @@ public class JSONAsyncTask extends AsyncTask {
                 str_JSON = contract.toString();
 
 
-            }
-
-            catch(Exception e) {
+            } catch (Exception e) {
 
                 str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
 
             }
             //endregion
+
+            return str_JSON;
+        }
+
+        /* Task #02 - Get the list of Stations related to a Contract (JSON)
+         * This one receive the list and the adapter, and updates them
+         *
+         * @param int KEYCODE_TASK_DAYTIME  => params[0]
+         * @param String *contract-name*   => params[1]
+         * @param ArrayList<Station> *stations-list*  => params[2]
+         * @param TextView *result-textview*  => params[3]
+         *
+         */
+        else if (params[0] instanceof Integer && (int) params[0] == KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT) {
+
+            String request = "https://api.jcdecaux.com/vls/v1/stations?";
+            request += "contract=" + (String) params[1];
+            request += "&apiKey=" + API_KEY;
+
+            String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
+            list = (ArrayList<Station>) params[2];
+            adapter = (StationsAdapter) params[3];
+
+            // On vide la liste avant de l'actualiser
+            list.clear();
+
+
+            //region GET_STATIONS_FROM_CONTRACT : Récupération du fichier JSON
+            try {
+
+                URL url_JCD = new URL(request);
+                HttpsURLConnection con_JCD = (HttpsURLConnection) url_JCD.openConnection();
+
+                if (con_JCD.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con_JCD.getInputStream()));
+                    String aux = "";
+
+                    StringBuilder builder = new StringBuilder();
+                    while ((aux = in.readLine()) != null) {
+                        builder.append(aux);
+                    }
+
+                    str_JSON = builder.toString();
+
+                }
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+            //endregion
+
+            //region GET_STATIONS_FROM_CONTRACT : Parsage du JSON
+            try {
+
+                JSONArray stationsJSON = new JSONArray(str_JSON);
+
+                for (int i = 0; i < stationsJSON.length(); i++) {
+
+                    JSONObject stationJSON = stationsJSON.getJSONObject(i);
+
+                    Station stationOBJ = new Station(
+                            stationJSON.getInt("number"),
+                            stationJSON.getString("name"),
+                            stationJSON.getString("address"),
+                            stationJSON.getJSONObject("position").getDouble("lat"),
+                            stationJSON.getJSONObject("position").getDouble("lng"),
+                            stationJSON.getBoolean("banking"),
+                            stationJSON.getBoolean("bonus"));
+
+                    stationOBJ.refresh(
+                            stationJSON.getString("status"),
+                            stationJSON.getInt("bike_stands"),
+                            stationJSON.getInt("available_bike_stands"),
+                            stationJSON.getInt("available_bikes"),
+                            stationJSON.getLong("last_update"));
+
+                    // Mise à jour de la liste
+                    list.add(stationOBJ);
+
+                }
+
+                str_JSON = "{ \"success\" : \"List updated and Adapter notified\" }";
+
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+            //endregion
+
 
             return str_JSON;
         }
@@ -171,9 +269,17 @@ public class JSONAsyncTask extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
 
-        super.onPostExecute(o);
+        if (o != null) {
 
-        tv_Result.setText((String) o);
+            super.onPostExecute(o);
+
+            if (tv_Result != null) { tv_Result.setText((String) o); }
+            else if (list != null && adapter != null) { adapter.notifyDataSetChanged(); }
+            else { /* Log ? Toast ? */ }
+
+        }
+
+        else { /* Exception ? Toast ? */ }
 
     }
 
