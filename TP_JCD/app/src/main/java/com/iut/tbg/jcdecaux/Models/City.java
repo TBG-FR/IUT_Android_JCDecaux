@@ -1,6 +1,8 @@
-package com.iut.tbg.jcdecaux.model;
+package com.iut.tbg.jcdecaux.Models;
 
-public class City {
+import java.io.Serializable;
+
+public class City implements Serializable {
 
     //region Model.City : Attributes
     private int id;

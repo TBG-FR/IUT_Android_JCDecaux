@@ -2,13 +2,13 @@ package com.iut.tbg.jcdecaux;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.iut.tbg.jcdecaux.model.Contract;
-import com.iut.tbg.jcdecaux.model.Station;
+import com.iut.tbg.jcdecaux.Adapters.ContractsAdapter;
+import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
+import com.iut.tbg.jcdecaux.Models.Contract;
+import com.iut.tbg.jcdecaux.Models.Station;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,6 +44,7 @@ public class JSONAsyncTask extends AsyncTask {
          * @param TextView *result-textview*  => params[2]
          *
          */
+        //region Task #01 - Get Stations from Contract (JSON -> TextView)
         if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_FROM_CONTRACT) {
 
             String request = "https://api.jcdecaux.com/vls/v1/stations?";
@@ -124,6 +125,7 @@ public class JSONAsyncTask extends AsyncTask {
 
             return str_JSON;
         }
+        //endregion
 
         /* Task #02 - Get the list of Stations related to a Contract (JSON)
          * This one receive the list and the adapter, and updates them
@@ -131,9 +133,10 @@ public class JSONAsyncTask extends AsyncTask {
          * @param int KEYCODE_TASK_DAYTIME  => params[0]
          * @param String *contract-name*   => params[1]
          * @param ArrayList<Station> *stations-list*  => params[2]
-         * @param TextView *result-textview*  => params[3]
+         * @param StationsAdapter *stations-adapter*  => params[3]
          *
          */
+        //region Task #02 - Get Stations from Contract (JSON -> Model -> Adapter/ListView
         else if (params[0] instanceof Integer && (int) params[0] == KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT) {
 
             String request = "https://api.jcdecaux.com/vls/v1/stations?";
@@ -218,6 +221,93 @@ public class JSONAsyncTask extends AsyncTask {
 
             return str_JSON;
         }
+        //endregion
+
+        /* Task #03 - Get the full list of Contracts (JSON)
+         * This one receive the list and the adapter, and updates them
+         *
+         * @param int KEYCODE_TASK_DAYTIME  => params[0]
+         * @param ArrayList<Station> *contracts-list*  => params[1]
+         * @param ContractsAdapter *contracts-adapter*  => params[2]
+         *
+         */
+        //region Task #03 - Get Stations from Contract (JSON -> Model -> Adapter/ListView
+        else if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_CONTRACTS_ALL) {
+
+            String request = "https://api.jcdecaux.com/vls/v1/contracts?";
+            request += "apiKey=" + API_KEY;
+
+            String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
+            list = (ArrayList<Contract>) params[1];
+            adapter = (ContractsAdapter) params[2];
+
+            // On vide la liste avant de l'actualiser
+            list.clear();
+
+            //region GET_CONTRACTS_ALL : Récupération du fichier JSON
+            try {
+
+                URL url_JCD = new URL(request);
+                HttpsURLConnection con_JCD = (HttpsURLConnection) url_JCD.openConnection();
+
+                if (con_JCD.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con_JCD.getInputStream()));
+                    String aux = "";
+
+                    StringBuilder builder = new StringBuilder();
+                    while ((aux = in.readLine()) != null) {
+                        builder.append(aux);
+                    }
+
+                    str_JSON = builder.toString();
+
+                }
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+            //endregion
+
+            //region GET_CONTRACTS_ALL : Parsage du JSON
+            try {
+
+                JSONArray contractsJSON = new JSONArray(str_JSON);
+
+                for (int i = 0; i < contractsJSON.length(); i++) {
+
+                    JSONObject contractJSON = contractsJSON.getJSONObject(i);
+
+                    JSONArray citiesJSON = contractJSON.getJSONArray("cities");
+                    String[] citiesSTR = new String[citiesJSON.length()];
+                    for (int j = 0; j < citiesJSON.length(); j++) { citiesSTR[j] = citiesJSON.getString(j); }
+
+                    Contract contractOBJ = new Contract(
+                            contractJSON.getString("name"),
+                            contractJSON.getString("commercial_name"),
+                            contractJSON.getString("country_code"),
+                            citiesSTR);
+
+                    // Mise à jour de la liste
+                    list.add(contractOBJ);
+
+                }
+
+                str_JSON = "{ \"success\" : \"List updated and Adapter notified\" }";
+
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+            //endregion
+
+            return str_JSON;
+        }
+        //endregion
 
         /* EX_5.1 - Weather RSS Data with AsyncTask
          *

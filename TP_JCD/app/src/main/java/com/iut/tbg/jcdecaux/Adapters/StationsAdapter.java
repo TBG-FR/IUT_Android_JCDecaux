@@ -1,4 +1,4 @@
-package com.iut.tbg.jcdecaux;
+package com.iut.tbg.jcdecaux.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.iut.tbg.jcdecaux.model.Station;
+import com.iut.tbg.jcdecaux.R;
+import com.iut.tbg.jcdecaux.Models.Station;
 
 import java.util.ArrayList;
 
@@ -48,43 +49,43 @@ public class StationsAdapter extends ArrayAdapter<Station> {
         // Check if an existing view is being reused, otherwise inflate the view
         if(convertView == null) { convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_station,parent, false); }
 
-        // Retrieve the contactHolder object from tag
-        StationHolder contactHolder = (StationHolder) convertView.getTag();
+        // Retrieve the stationHolder object from tag
+        StationHolder stationHolder = (StationHolder) convertView.getTag();
 
-        if(contactHolder == null) {
+        if(stationHolder == null) {
 
-            contactHolder = new StationHolder();
+            stationHolder = new StationHolder();
 
-            contactHolder.name = (TextView) convertView.findViewById(R.id.station_name);
-            contactHolder.address = (TextView) convertView.findViewById(R.id.station_address);
-            contactHolder.status = (ImageView) convertView.findViewById(R.id.station_status);
+            stationHolder.name = (TextView) convertView.findViewById(R.id.station_name);
+            stationHolder.address = (TextView) convertView.findViewById(R.id.station_address);
+            stationHolder.status = (ImageView) convertView.findViewById(R.id.station_status);
 
             // Optional - Others fields ?
 
-            // Cache the contactHolder object inside the view
-            convertView.setTag(contactHolder);
+            // Cache the stationHolder object inside the view
+            convertView.setTag(stationHolder);
         }
 
-        // Populate the data from the data object via the contactHolder object into the template view.
-        contactHolder.name.setText(station.getName());
-        contactHolder.address.setText(station.getAddress());
+        // Populate the data from the data object via the stationHolder object into the template view.
+        stationHolder.name.setText(station.getName());
+        stationHolder.address.setText(station.getAddress());
 
         switch (station.getStatusToString()) {
 
             case "OPEN":
-                contactHolder.status.setImageResource(R.mipmap.status_online);
+                stationHolder.status.setImageResource(R.mipmap.status_online);
                 break;
 
             case "CLOSE":
-                contactHolder.status.setImageResource(R.mipmap.status_offline);
+                stationHolder.status.setImageResource(R.mipmap.status_offline);
                 break;
 
             case "UNKNOWN":
-                contactHolder.status.setImageResource(R.mipmap.status_unknown);
+                stationHolder.status.setImageResource(R.mipmap.status_unknown);
                 break;
 
             default:
-                contactHolder.status.setImageResource(R.mipmap.status_unknown);
+                stationHolder.status.setImageResource(R.mipmap.status_unknown);
                 break;
 
         }

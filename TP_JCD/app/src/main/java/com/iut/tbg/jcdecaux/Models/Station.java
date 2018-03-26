@@ -1,9 +1,9 @@
-package com.iut.tbg.jcdecaux.model;
+package com.iut.tbg.jcdecaux.Models;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Station {
+public class Station implements Serializable {
 
     private enum Status {
         OPEN,
