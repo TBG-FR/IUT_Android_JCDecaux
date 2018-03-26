@@ -7,3 +7,5 @@ https://developer.jcdecaux.com/#/opendata/vls?page=getstarted
 http://googlemaps.github.io/android-maps-utils/  
 
 https://developers.google.com/maps/documentation/android-api/intro  
+
+https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list  
