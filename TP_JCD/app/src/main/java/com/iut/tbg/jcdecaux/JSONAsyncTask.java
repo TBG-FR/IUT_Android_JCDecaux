@@ -1,5 +1,6 @@
 package com.iut.tbg.jcdecaux;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -33,11 +34,11 @@ public class JSONAsyncTask extends AsyncTask {
     public static final int KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT = 268;
     public static final int KEYCODE_MAP_STATIONS_FROM_CONTRACT = 279;
 
-    private TextView tv_Result;
-    private ArrayList list;
-    private ArrayAdapter adapter;
-    private SupportMapFragment map;
-    private Object _this;
+    protected TextView tv_Result;
+    protected ArrayList list;
+    protected ArrayAdapter adapter;
+    protected SupportMapFragment map;
+    protected Object _this;
 
     @Override
     protected String doInBackground(Object... params) {
@@ -431,58 +432,5 @@ public class JSONAsyncTask extends AsyncTask {
         else { /* Exception ? Toast ? */ }
 
     }
-
-    /*
-    @Override
-    protected void onPostExecute(String s) {
-
-        super.onPostExecute(s);
-
-        if(s.isEmpty()) {
-
-            //tv_Result.setText("ERROR : Empty string");
-            tv_Result.setText("ERROR !");
-            Log.e("DaytimeError", "Empty Daytime string");
-
-        }
-
-        else if(s.startsWith("ERR_DTM_")) {
-
-            //tv_Result.setText("ERROR :" + s.subSequence(8,s.length()));
-            tv_Result.setText("ERROR !");
-            Log.e("DaytimeError", s);
-
-        }
-
-        else if(s.startsWith("ERR_WEA_")) {
-
-            //tv_Result.setText("ERROR :" + s.subSequence(8,s.length()));
-            String strHtml = "<html><body><p>ERROR !</p></body></html>";
-            wv_Result.loadData(strHtml, "text/html; charset=utf-8", "UTF-8");
-            Log.e("DaytimeError", s);
-
-        }
-
-        else if(s.startsWith("WEA_")) {
-
-            wv_Result.loadData(s.substring(4, s.length()), "text/xml; charset=utf-8", "UTF-8");
-            Log.i("AsyncSuccess", "Weather");
-
-        }
-
-        else if(s.startsWith("DTM_")) {
-
-            tv_Result.setText(s.substring(4, s.length()));
-            Log.i("AsyncSuccess", "Daytime");
-
-        }
-
-        else {
-
-            Log.e("UnkownStringException", "Received a string that is not Weather nor Daytime nor an Error message...");
-
-        }
-
-    }*/
 
 }

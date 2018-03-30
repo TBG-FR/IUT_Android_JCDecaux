@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.iut.tbg.jcdecaux.R;
 import com.iut.tbg.jcdecaux.Models.Station;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StationsAdapter extends ArrayAdapter<Station> {
+public class StationsAdapter extends ArrayAdapter<Station> implements Serializable {
 
     ArrayList<Station> stations;
 

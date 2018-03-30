@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ContractsAdapter extends ArrayAdapter<Contract> {
+public class ContractsAdapter extends ArrayAdapter<Contract> implements Serializable {
 
     ArrayList<Contract> contracts;
 
@@ -91,7 +92,11 @@ public class ContractsAdapter extends ArrayAdapter<Contract> {
     @Override
     public int getCount() {
 
-        return this.contracts.size();
+        // TODO : Check if really useful ? (Avoid error/crashes but... ?)
+
+        if(this.contracts != null && this.contracts.isEmpty() == false) { return this.contracts.size(); }
+
+        else { return -1; }
 
     }
 

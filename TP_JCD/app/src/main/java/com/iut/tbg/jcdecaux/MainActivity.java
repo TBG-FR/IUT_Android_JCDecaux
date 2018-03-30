@@ -15,6 +15,7 @@ import com.iut.tbg.jcdecaux.Models.Contract;
 
 import java.util.ArrayList;
 
+import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACTS;
 import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_GET_CONTRACTS_ALL;
 
 public class MainActivity extends Activity {
@@ -25,9 +26,9 @@ public class MainActivity extends Activity {
     protected TextView tv_contracts;
     protected ListView lv_contracts;
 
-    private Contract selectedContract;
-    private ArrayList<Contract> contracts;
-    private ContractsAdapter contractsAdapter;
+    protected Contract selectedContract;
+    protected ArrayList<Contract> contracts;
+    protected ContractsAdapter contractsAdapter;
 
     //endregion
 
@@ -56,7 +57,7 @@ public class MainActivity extends Activity {
         tv_contracts = (TextView) findViewById(R.id.tv_contracts);
         lv_contracts = (ListView) findViewById(R.id.lv_contracts);
 
-        contracts = new ArrayList<>();
+        contracts = (ArrayList<Contract>) getIntent().getSerializableExtra(KEY_CONTRACTS);
         contractsAdapter = new ContractsAdapter(this, contracts);
         lv_contracts.setAdapter(contractsAdapter);
 
@@ -73,8 +74,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        // Récupérer la liste une première fois
-        btn_Refresh(new View(getApplicationContext()));
+        // Récupérer la liste une première fois => fait par l'AsyncTask
+        //btn_Refresh(new View(getApplicationContext()));
 
     }
 
@@ -113,9 +114,14 @@ public class MainActivity extends Activity {
 
     }
 
-    public void btn_Exit(View v) {
+    public void btn_Exit(View v) { finish(); }
 
-        finish();
+    @Override
+    public void finish() {
+
+        Intent CloseApp = new Intent();
+        CloseApp.putExtra(KEY_CONTRACTS, contracts);
+        super.finish();
 
     }
 }
