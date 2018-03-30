@@ -9,13 +9,22 @@
 
     <ImageView
         android:id="@+id/img_splash"
-        android:src="@mipmap/splash_logo"
+        android:src="@drawable/ic_biker"
+
+        android:padding="10dp"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_between_elements"
+        android:layout_marginRight="@dimen/horizontal_margin_between_elements"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_between_elements"
+        android:layout_marginBottom="@dimen/vertical_margin_between_elements"
 
         android:layout_centerInParent="true"
         />
