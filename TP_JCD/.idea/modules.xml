@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TP_JCD.iml" filepath="$PROJECT_DIR$/TP_JCD.iml" />
+      <module fileurl="file://C:\Users\TBG\Repositories\IUT_Android_JCDecaux\TP_JCD\TP_JCD.iml" filepath="C:\Users\TBG\Repositories\IUT_Android_JCDecaux\TP_JCD\TP_JCD.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\TBG\Repositories\IUT_Android_JCDecaux\TP_JCD\app\app.iml" filepath="C:\Users\TBG\Repositories\IUT_Android_JCDecaux\TP_JCD\app\app.iml" />
     </modules>
   </component>
 </project>

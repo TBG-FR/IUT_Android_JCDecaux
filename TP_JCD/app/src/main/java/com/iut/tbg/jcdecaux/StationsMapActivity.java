@@ -18,8 +18,11 @@ import com.iut.tbg.jcdecaux.Models.City;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.Models.Station;
 
+import java.util.ArrayList;
+
 import static android.support.constraint.R.id.parent;
 import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
+import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_MAP_STATIONS_FROM_CONTRACT;
 import static com.iut.tbg.jcdecaux.MainActivity.KEY_CONTRACT;
 
 public class StationsMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -34,19 +37,15 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //region Maps Original Instructions
         setContentView(R.layout.activity_stations_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        //endregion
 
         sp_city_selector = (Spinner)findViewById(R.id.sp_city_selector);
-
         contract = (Contract) getIntent().getSerializableExtra(KEY_CONTRACT);
 
-        StationsAdapter stationsAdapter = new StationsAdapter(this, contract.getStations()); /* TODO : Do it differently */
-        new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            //mapFragment.getMapAsync(this); -> Now in AsyncTask
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        new JSONAsyncTask().execute(KEYCODE_MAP_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), mapFragment, this);
 
         /* TODO : Replace getCities */
         ArrayAdapter<City> citySelectorAdapter = new ArrayAdapter<City>(StationsMapActivity.this, android.R.layout.simple_spinner_item, contract.getCities());
@@ -110,7 +109,9 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
 
             Station first = contract.getStations().get(0);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(first.getLatitude(), first.getLongitude())));
-            mMap.moveCamera(CameraUpdateFactory.zoomOut());
+            mMap.moveCamera(CameraUpdateFactory.zoomIn());
+            mMap.moveCamera(CameraUpdateFactory.zoomIn());
+            mMap.moveCamera(CameraUpdateFactory.zoomIn());
 
         }
 

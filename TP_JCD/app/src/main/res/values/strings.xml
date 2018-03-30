@@ -2,6 +2,8 @@
     <string name="app_name">JCDecaux</string>
 
     <string name="tv_contracts_instructions">Sélectionnez votre Ville (son Contrat)</string>
+    <string name="tv_station">Station</string>
+    <string name="tv_station_update">Dernière mise à jour :</string>
 
     <string name="btn_stations_refresh">Actualiser</string>
     <string name="btn_stations_map">Carte des Stations</string>

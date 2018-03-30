@@ -1,8 +1,10 @@
 package com.iut.tbg.jcdecaux;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -14,11 +16,12 @@ import java.util.ArrayList;
 
 import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
 import static com.iut.tbg.jcdecaux.MainActivity.KEY_CONTRACT;
+import static com.iut.tbg.jcdecaux.MainActivity.KEY_STATION;
 
 public class StationsListActivity extends Activity {
 
-    private Button btn_refresh, btn_goback;
-    private ListView lv_stations;
+    protected Button btn_refresh, btn_goback;
+    protected ListView lv_stations;
 
     private Contract contract;
     private StationsAdapter stationsAdapter;
@@ -36,6 +39,18 @@ public class StationsListActivity extends Activity {
         contract = (Contract) getIntent().getSerializableExtra(KEY_CONTRACT);
         stationsAdapter = new StationsAdapter(this, contract.getStations());
         lv_stations.setAdapter(stationsAdapter);
+
+        lv_stations.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
+                Intent stationDetails = new Intent(StationsListActivity.this, StationDetailsActivity.class);
+                stationDetails.putExtra(KEY_STATION, contract.getStations().get(position));
+                startActivity(stationDetails);
+
+            }
+        });
 
         // Récupérer la liste une première fois
         btn_Refresh(new View(getApplicationContext()));

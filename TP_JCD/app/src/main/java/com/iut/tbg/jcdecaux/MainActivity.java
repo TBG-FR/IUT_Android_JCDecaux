@@ -21,9 +21,9 @@ public class MainActivity extends Activity {
 
     //region MainActivity - Attributes
 
-    private Button btn_stations_map, btn_stations_list, btn_refresh, btn_exit;
-    private TextView tv_contracts;
-    private ListView lv_contracts;
+    protected Button btn_stations_map, btn_stations_list, btn_refresh, btn_exit;
+    protected TextView tv_contracts;
+    protected ListView lv_contracts;
 
     private Contract selectedContract;
     private ArrayList<Contract> contracts;

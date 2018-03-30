@@ -6,4 +6,103 @@
     android:layout_height="match_parent"
     tools:context="com.iut.tbg.jcdecaux.StationDetailsActivity">
 
+    <!--
+        private int number;
+        private String name;
+        private String address;
+        private double latitude;
+        private double longitude;
+        private boolean banking;
+        private boolean bonus;
+        private Status status;
+        private int bike_stands;
+        private int available_bike_stands;
+        private int available_bike;
+        private Timestamp last_update;
+    -->
+
+    <!-- Stations Details : Basic informations -->
+
+    <TextView
+        android:id="@+id/tv_station"
+        android:text="@string/tv_station"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_station_number"
+        android:text="0000"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_station"
+
+        app:layout_constraintLeft_toRightOf="@+id/tv_station"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_station_name"
+        android:text="0000"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_station_number"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_station_address"
+        android:text="0000"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_station_name"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <!-- Station Details : Last update -->
+
+    <TextView
+        android:id="@+id/tv_station_update"
+        android:text="@string/tv_station_update"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_station_update_time"
+        android:text="24-01-2018 05:42"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_station_update"
+
+        app:layout_constraintLeft_toRightOf="@+id/tv_station_update"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
 </android.support.constraint.ConstraintLayout>
