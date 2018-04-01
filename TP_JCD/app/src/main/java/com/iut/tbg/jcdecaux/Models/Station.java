@@ -12,6 +12,7 @@ public class Station implements Serializable {
     }
 
     //region Model.Station : Attributes
+
     private int number;
     private String name;
     private String address;
@@ -24,7 +25,10 @@ public class Station implements Serializable {
     private int available_bike_stands;
     private int available_bike;
     private Timestamp last_update;
+
     //endregion
+
+    //region Model.Station : Constructors
 
     // Constructor : Static data only
     public Station(int number, String name, String address, double latitude, double longitude, boolean banking, boolean bonus)  {
@@ -59,6 +63,8 @@ public class Station implements Serializable {
         this.refresh(status, bike_stands, available_bike_stands, available_bike, last_update);
 
     }
+
+    //endregion
 
     //region Model.Station : Accessors
 
@@ -97,6 +103,7 @@ public class Station implements Serializable {
         }
 
     }
+
     //endregion
 
     //region Model.Station : Mutators
@@ -136,7 +143,10 @@ public class Station implements Serializable {
         }
 
     }
+
     //endregion
+
+    //region Model.Station : Methods
 
     // Refresh Dynamic data (with status as a String)
     public void refresh(String status, int bike_stands, int available_bike_stands, int available_bike, long last_update) {
@@ -173,6 +183,8 @@ public class Station implements Serializable {
         this.available_bike = available_bike;
         this.last_update = new Timestamp(last_update);
     }
+
+    //endregion
 
 }
 
