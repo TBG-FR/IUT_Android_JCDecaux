@@ -11,11 +11,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.iut.tbg.jcdecaux.Adapters.ContractsAdapter;
+import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
 import com.iut.tbg.jcdecaux.Models.Contract;
 
 import java.util.ArrayList;
 
+import static com.iut.tbg.jcdecaux.JCDAsyncTask.KEYCODE_GET_STATIONS_LIST_ACTIVITY;
+import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACTS;
+import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_ASK_LIST;
+import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_ASK_MAP;
+import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_CLOSE;
 import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_GET_CONTRACTS_ALL;
 
 public class MainActivity extends Activity {
@@ -27,6 +33,7 @@ public class MainActivity extends Activity {
     protected ListView lv_contracts;
 
     protected Contract selectedContract;
+    protected int selectedContractPos;
     protected ArrayList<Contract> contracts;
     protected ContractsAdapter contractsAdapter;
 
@@ -34,6 +41,7 @@ public class MainActivity extends Activity {
 
     //region MainActivity : Intents - Keys & Request Codes
 
+    /*
     static final String KEY_CONTRACT = "JCD_CONTRACT";
     static final String KEY_STATIONS = "JCD_STATIONS";
     static final String KEY_STATION = "JCD_STATION";
@@ -41,6 +49,7 @@ public class MainActivity extends Activity {
     static final int RQC_CONTRACT = 172;
     static final int RQC_STATIONS = 183;
     static final int RQC_STATION = 194;
+    */
 
     //endregion
 
@@ -70,6 +79,7 @@ public class MainActivity extends Activity {
                 //lv_contracts.setSelection(position);
 
                 selectedContract = contracts.get(position);
+                selectedContractPos = position;
 
             }
         });
@@ -83,13 +93,23 @@ public class MainActivity extends Activity {
 
         if(selectedContract != null) {
 
+            Intent closeApp = new Intent();
+            setResult(RESULT_ASK_LIST, closeApp);
+            closeApp.putExtra(KEY_CONTRACTS, contracts);
+            closeApp.putExtra(KEY_CONTRACT, selectedContractPos);
+            super.finish();
+
+            /*
             // Launch the next Activity
             Intent myIntent = new Intent(MainActivity.this, StationsListActivity.class);
             myIntent.putExtra(KEY_CONTRACT, selectedContract);
             //startActivityForResult(myIntent, RQC_NAME);
             startActivity(myIntent);
+            */
 
         }
+
+        else { /* TODO : Toast ? Other ? */ }
 
     }
 
@@ -97,20 +117,31 @@ public class MainActivity extends Activity {
 
         if(selectedContract != null) {
 
+            Intent closeApp = new Intent();
+            setResult(RESULT_ASK_MAP, closeApp);
+            closeApp.putExtra(KEY_CONTRACTS, contracts);
+            closeApp.putExtra(KEY_CONTRACT, selectedContractPos);
+            super.finish();
+
+            /*
             // Launch the next Activity
             Intent myIntent = new Intent(MainActivity.this, StationsMapActivity.class);
             myIntent.putExtra(KEY_CONTRACT, selectedContract);
             //startActivityForResult(myIntent, RQC_NAME);
             startActivity(myIntent);
+            */
 
         }
+
+        else { /* TODO : Toast ? Other ? */ }
 
     }
 
     public void btn_Refresh(View v) {
 
         // Keycode, URL, Textview
-        new JSONAsyncTask().execute(KEYCODE_GET_CONTRACTS_ALL, contracts, contractsAdapter);
+        // TODO
+        //new JSONAsyncTask().execute(KEYCODE_GET_CONTRACTS_ALL, contracts, contractsAdapter);
 
     }
 
@@ -119,8 +150,9 @@ public class MainActivity extends Activity {
     @Override
     public void finish() {
 
-        Intent CloseApp = new Intent();
-        CloseApp.putExtra(KEY_CONTRACTS, contracts);
+        Intent closeApp = new Intent();
+        setResult(RESULT_CLOSE, closeApp);
+        closeApp.putExtra(KEY_CONTRACTS, contracts);
         super.finish();
 
     }

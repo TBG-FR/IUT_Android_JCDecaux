@@ -14,17 +14,18 @@ import com.iut.tbg.jcdecaux.Models.Station;
 
 import java.util.ArrayList;
 
+import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATION;
+import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_CLOSE;
 import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
-import static com.iut.tbg.jcdecaux.MainActivity.KEY_CONTRACT;
-import static com.iut.tbg.jcdecaux.MainActivity.KEY_STATION;
+import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
 
 public class StationsListActivity extends Activity {
 
     protected Button btn_refresh, btn_goback;
     protected ListView lv_stations;
 
-    private Contract contract;
-    private StationsAdapter stationsAdapter;
+    protected Contract contract;
+    protected StationsAdapter stationsAdapter;
 
 
     @Override
@@ -34,9 +35,10 @@ public class StationsListActivity extends Activity {
 
         btn_refresh = (Button) findViewById(R.id.btn_refresh);
         btn_goback = (Button) findViewById(R.id.btn_goback);
+
         lv_stations = (ListView) findViewById(R.id.lv_stations);
 
-        contract = (Contract) getIntent().getSerializableExtra(KEY_CONTRACT);
+        contract = (Contract) getIntent().getSerializableExtra(JCDecaux.KEY_CONTRACT);
         stationsAdapter = new StationsAdapter(this, contract.getStations());
         lv_stations.setAdapter(stationsAdapter);
 
@@ -52,21 +54,29 @@ public class StationsListActivity extends Activity {
             }
         });
 
-        // Récupérer la liste une première fois
-        btn_Refresh(new View(getApplicationContext()));
-
     }
 
     public void btn_Refresh(View v) {
 
         // Keycode, Contract, Stations (list), Adapter
-        new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+        //TODO
+        //new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
 
     }
 
     public void btn_GoBack(View v) {
 
         finish();
+
+    }
+
+    @Override
+    public void finish() {
+
+        Intent closeApp = new Intent();
+        setResult(RESULT_CLOSE, closeApp);
+        closeApp.putExtra(KEY_CONTRACT, contract);
+        super.finish();
 
     }
 }

@@ -29,6 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 import static com.iut.tbg.jcdecaux.JCDecaux.API_KEY;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_ADAPTER_C;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_ADAPTER_S;
+import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACTS;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATIONS;
 import static com.iut.tbg.jcdecaux.JCDecaux.RQC_CONTRACTS;
@@ -50,6 +51,7 @@ public class JCDAsyncTask extends AsyncTask {
 
     protected int task;
     protected Context context;
+    protected Contract contract;
     protected ArrayList list;
     protected ArrayAdapter adapter;
     protected SupportMapFragment map;
@@ -69,11 +71,12 @@ public class JCDAsyncTask extends AsyncTask {
          *
          * @param int KEYCODE_GET_CONTRACTS_ALL_ACTIVITY    =>  params[0]
          * @param ArrayList<Contract> *contracts-list*      =>  params[1]
-         * @param ContractsAdapter *contracts-adapter*      => params[2]
+         * @param ContractsAdapter *contracts-adapter*      =>  params[2] UNUSED ? TODO REMOVE ?
          *
          */
         if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_CONTRACTS_ALL_ACTIVITY) {
 
+            //new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts(), contractsAdapter);
             this.task = KEYCODE_GET_CONTRACTS_ALL_ACTIVITY;
 
             String request = "https://api.jcdecaux.com/vls/v1/contracts?";
@@ -81,7 +84,7 @@ public class JCDAsyncTask extends AsyncTask {
 
             String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
             list = (ArrayList<Contract>) params[1];
-            adapter = (ContractsAdapter) params[2];
+            //adapter = (ContractsAdapter) params[2];
 
             // On vide la liste avant de l'actualiser
             list.clear();
@@ -152,31 +155,31 @@ public class JCDAsyncTask extends AsyncTask {
 
         //endregion
 
-        /* Task #04 - Get the list of Stations related to a Contract (JSON)
-         * This one receive the list and the map, and launch the map callback
+        //region 02 -- KEYCODE_GET_STATIONS_LIST_ACTIVITY
+
+        /* Task #02 - Get the complete list of Stations of a Contract and launch related Activity
          *
-         * @param int KEYCODE_MAP_STATIONS_FROM_CONTRACT  => params[0]
-         * @param String *contract-name*   => params[1]
-         * @param ArrayList<Station> *stations-list*  => params[2]
-         * @param SupportMapFragment *map-instance*  => params[3]
+         * @param int KEYCODE_GET_STATIONS_LIST_ACTIVITY    =>  params[0]
+         * @param Contract *selected-contracts*             =>  params[1]
+         * @param StationsAdapter *stations-adapter*        =>  params[2] UNUSED ? TODO REMOVE ?
          *
          */
-        //region Task #04 - Get {Map} Stations from Contract (JSON -> Model
-        /*
-        else if (params[0] instanceof Integer && (int) params[0] == KEYCODE_MAP_STATIONS_FROM_CONTRACT) {
+        if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_LIST_ACTIVITY) {
+
+            // new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_LIST_ACTIVITY, databaseJCD.getContracts().get(selectedContract), stationsAdapter);
+            this.task = KEYCODE_GET_STATIONS_LIST_ACTIVITY;
+            contract = (Contract) params[1];
 
             String request = "https://api.jcdecaux.com/vls/v1/stations?";
-            request += "contract=" + (String) params[1];
+            request += "contract=" + contract.getName();
             request += "&apiKey=" + API_KEY;
 
             String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
-            list = (ArrayList<Station>) params[2];
-            map = (SupportMapFragment) params[3];
-            _this = params[4];
+            list = contract.getStations();
+            //adapter = (StationsAdapter) params[3];
 
             // On vide la liste avant de l'actualiser
             list.clear();
-
 
             //region GET_STATIONS_FROM_CONTRACT : Récupération du fichier JSON
             try {
@@ -245,10 +248,107 @@ public class JCDAsyncTask extends AsyncTask {
             }
             //endregion
 
+            return str_JSON;
+        }
+
+        //endregion
+
+        //region 03 -- KEYCODE_GET_STATIONS_MAP_ACTIVITY
+
+        /* Task #03 - Get the complete list of Stations of a Contract and launch related Activity
+         *
+         * @param int KEYCODE_GET_STATIONS_MAP_ACTIVITY    =>  params[0]
+         * @param Contract *selected-contracts*             =>  params[1]
+         *
+         */
+        if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_MAP_ACTIVITY) {
+
+            // new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_MAP_ACTIVITY, databaseJCD.getContracts().get(selectedContract));
+            this.task = KEYCODE_GET_STATIONS_MAP_ACTIVITY;
+            contract = (Contract) params[1];
+
+            String request = "https://api.jcdecaux.com/vls/v1/stations?";
+            request += "contract=" + contract.getName();
+            request += "&apiKey=" + API_KEY;
+
+            String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
+            list = contract.getStations();
+            //adapter = (StationsAdapter) params[3];
+
+            // On vide la liste avant de l'actualiser
+            list.clear();
+
+            //region GET_STATIONS_FROM_CONTRACT : Récupération du fichier JSON
+            try {
+
+                URL url_JCD = new URL(request);
+                HttpsURLConnection con_JCD = (HttpsURLConnection) url_JCD.openConnection();
+
+                if (con_JCD.getResponseCode() == HttpURLConnection.HTTP_OK) {
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con_JCD.getInputStream()));
+                    String aux = "";
+
+                    StringBuilder builder = new StringBuilder();
+                    while ((aux = in.readLine()) != null) {
+                        builder.append(aux);
+                    }
+
+                    str_JSON = builder.toString();
+
+                }
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+            //endregion
+
+            //region GET_STATIONS_FROM_CONTRACT : Parsage du JSON
+            try {
+
+                JSONArray stationsJSON = new JSONArray(str_JSON);
+
+                for (int i = 0; i < stationsJSON.length(); i++) {
+
+                    JSONObject stationJSON = stationsJSON.getJSONObject(i);
+
+                    Station stationOBJ = new Station(
+                            stationJSON.getInt("number"),
+                            stationJSON.getString("name"),
+                            stationJSON.getString("address"),
+                            stationJSON.getJSONObject("position").getDouble("lat"),
+                            stationJSON.getJSONObject("position").getDouble("lng"),
+                            stationJSON.getBoolean("banking"),
+                            stationJSON.getBoolean("bonus"));
+
+                    stationOBJ.refresh(
+                            stationJSON.getString("status"),
+                            stationJSON.getInt("bike_stands"),
+                            stationJSON.getInt("available_bike_stands"),
+                            stationJSON.getInt("available_bikes"),
+                            stationJSON.getLong("last_update"));
+
+                    // Mise à jour de la liste
+                    list.add(stationOBJ);
+
+                }
+
+                str_JSON = "{ \"success\" : \"List updated and Adapter notified\" }";
+
+
+            } catch (Exception e) {
+
+                str_JSON = "{ \"error\" : \"Exception :" + e.getMessage() + "\" }";
+
+            }
+
+            //endregion
 
             return str_JSON;
         }
-        */
+
         //endregion
 
         return null;
@@ -276,7 +376,8 @@ public class JCDAsyncTask extends AsyncTask {
                 case KEYCODE_GET_STATIONS_LIST_ACTIVITY:
 
                     Intent StationsListActivity = new Intent(context, StationsListActivity.class);
-                    StationsListActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
+                    //StationsListActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
+                    StationsListActivity.putExtra(KEY_CONTRACT, contract); // list = contract.getStations()
                     //StationsListActivity.putExtra(KEY_ADAPTER_S, adapter); // adapter = stationsAdapter
                     ((Activity)context).startActivityForResult(StationsListActivity, RQC_STATIONS_L);
 
@@ -285,7 +386,8 @@ public class JCDAsyncTask extends AsyncTask {
                 case KEYCODE_GET_STATIONS_MAP_ACTIVITY:
 
                     Intent StationsMapActivity = new Intent(context, StationsMapActivity.class);
-                    StationsMapActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
+                    //StationsListActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
+                    StationsMapActivity.putExtra(KEY_CONTRACT, contract); // list = contract.getStations()
                     //StationsMapActivity.putExtra(KEY_MAP_, adapter); // adapter = contractsAdapter
                     ((Activity)context).startActivityForResult(StationsMapActivity, RQC_STATIONS_M);
 
