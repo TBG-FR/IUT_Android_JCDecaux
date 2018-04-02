@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iut.tbg.jcdecaux.Adapters.ContractsAdapter;
 import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
@@ -84,9 +85,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        // Récupérer la liste une première fois => fait par l'AsyncTask
-        //btn_Refresh(new View(getApplicationContext()));
-
     }
 
     public void btn_StationsList(View v) {
@@ -99,17 +97,9 @@ public class MainActivity extends Activity {
             closeApp.putExtra(KEY_CONTRACT, selectedContractPos);
             super.finish();
 
-            /*
-            // Launch the next Activity
-            Intent myIntent = new Intent(MainActivity.this, StationsListActivity.class);
-            myIntent.putExtra(KEY_CONTRACT, selectedContract);
-            //startActivityForResult(myIntent, RQC_NAME);
-            startActivity(myIntent);
-            */
-
         }
 
-        else { /* TODO : Toast ? Other ? */ }
+        else { Toast.makeText(getApplicationContext(), "VOus devez d'abord sélectionner une Station !", Toast.LENGTH_LONG).show(); }
 
     }
 
@@ -123,17 +113,9 @@ public class MainActivity extends Activity {
             closeApp.putExtra(KEY_CONTRACT, selectedContractPos);
             super.finish();
 
-            /*
-            // Launch the next Activity
-            Intent myIntent = new Intent(MainActivity.this, StationsMapActivity.class);
-            myIntent.putExtra(KEY_CONTRACT, selectedContract);
-            //startActivityForResult(myIntent, RQC_NAME);
-            startActivity(myIntent);
-            */
-
         }
 
-        else { /* TODO : Toast ? Other ? */ }
+        else { Toast.makeText(getApplicationContext(), "VOus devez d'abord sélectionner une Station !", Toast.LENGTH_LONG).show(); }
 
     }
 

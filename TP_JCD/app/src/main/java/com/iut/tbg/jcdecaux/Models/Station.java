@@ -2,10 +2,11 @@ package com.iut.tbg.jcdecaux.Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Station implements Serializable {
 
-    private enum Status {
+    public enum Status {
         OPEN,
         CLOSE,
         UNKNOWN,
@@ -79,10 +80,10 @@ public class Station implements Serializable {
 
     // Dynamic data
     public Status getStatus() { return status; }
-    public int getBike_stands() { return bike_stands; }
-    public int getAvailable_bike_stands() { return available_bike_stands; }
-    public int getAvailable_bike() { return available_bike; }
-    public Timestamp getLast_update() { return last_update; }
+    public int getBikeStands() { return bike_stands; }
+    public int getAvailableBikeStands() { return available_bike_stands; }
+    public int getAvailableBike() { return available_bike; }
+    public Timestamp getLastUpdate() { return last_update; }
 
     public String getStatusToString() {
 
@@ -103,6 +104,9 @@ public class Station implements Serializable {
         }
 
     }
+
+    public String getLastUpdateToShortString() { return new SimpleDateFormat("dd/MM/yy HH:mm").format(last_update); }
+    public String getLastUpdateToLongString() { return new SimpleDateFormat("dd MMMM yyyy à HH/hmm").format(last_update); }
 
     //endregion
 

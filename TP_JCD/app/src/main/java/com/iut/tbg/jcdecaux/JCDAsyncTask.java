@@ -71,12 +71,11 @@ public class JCDAsyncTask extends AsyncTask {
          *
          * @param int KEYCODE_GET_CONTRACTS_ALL_ACTIVITY    =>  params[0]
          * @param ArrayList<Contract> *contracts-list*      =>  params[1]
-         * @param ContractsAdapter *contracts-adapter*      =>  params[2] UNUSED ? TODO REMOVE ?
          *
          */
         if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_CONTRACTS_ALL_ACTIVITY) {
 
-            //new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts(), contractsAdapter);
+            //new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts());
             this.task = KEYCODE_GET_CONTRACTS_ALL_ACTIVITY;
 
             String request = "https://api.jcdecaux.com/vls/v1/contracts?";
@@ -84,7 +83,6 @@ public class JCDAsyncTask extends AsyncTask {
 
             String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
             list = (ArrayList<Contract>) params[1];
-            //adapter = (ContractsAdapter) params[2];
 
             // On vide la liste avant de l'actualiser
             list.clear();
@@ -161,12 +159,11 @@ public class JCDAsyncTask extends AsyncTask {
          *
          * @param int KEYCODE_GET_STATIONS_LIST_ACTIVITY    =>  params[0]
          * @param Contract *selected-contracts*             =>  params[1]
-         * @param StationsAdapter *stations-adapter*        =>  params[2] UNUSED ? TODO REMOVE ?
          *
          */
         if (params[0] instanceof Integer && (int) params[0] == KEYCODE_GET_STATIONS_LIST_ACTIVITY) {
 
-            // new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_LIST_ACTIVITY, databaseJCD.getContracts().get(selectedContract), stationsAdapter);
+            // new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_LIST_ACTIVITY, databaseJCD.getContracts().get(selectedContract));
             this.task = KEYCODE_GET_STATIONS_LIST_ACTIVITY;
             contract = (Contract) params[1];
 
@@ -176,7 +173,6 @@ public class JCDAsyncTask extends AsyncTask {
 
             String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
             list = contract.getStations();
-            //adapter = (StationsAdapter) params[3];
 
             // On vide la liste avant de l'actualiser
             list.clear();
@@ -363,15 +359,6 @@ public class JCDAsyncTask extends AsyncTask {
             super.onPostExecute(o);
 
             switch(task) {
-
-                case KEYCODE_GET_CONTRACTS_ALL_ACTIVITY:
-
-                    Intent ContractsActivity = new Intent(context, MainActivity.class);
-                    ContractsActivity.putExtra(KEY_CONTRACTS, list); // list = databaseJCD.getContracts()
-                    //ContractsActivity.putExtra(KEY_ADAPTER_C, adapter); // adapter = contractsAdapter
-                    ((Activity)context).startActivityForResult(ContractsActivity, RQC_CONTRACTS);
-
-                    break;
 
                 case KEYCODE_GET_STATIONS_LIST_ACTIVITY:
 

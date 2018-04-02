@@ -3,8 +3,6 @@ package com.iut.tbg.jcdecaux;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -16,19 +14,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
 import com.iut.tbg.jcdecaux.Models.City;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.Models.Station;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.R.id.parent;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
 import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATION;
 import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_CLOSE;
-import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
-import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_MAP_STATIONS_FROM_CONTRACT;
 
 public class StationsMapActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener,
@@ -210,7 +204,7 @@ public class StationsMapActivity extends FragmentActivity implements
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(station.getLatitude(), station.getLongitude()))
                         .title(station.getName())
-                        .snippet(station.getAddress() + "\n" + station.getAvailable_bike() + " - " + station.getAvailable_bike_stands())
+                        .snippet(station.getAddress() + "\n" + station.getAvailableBike() + " - " + station.getAvailableBikeStands())
                         .draggable(false)
                 );
                 marker.setTag(station);
