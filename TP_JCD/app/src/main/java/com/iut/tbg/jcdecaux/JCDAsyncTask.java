@@ -360,12 +360,19 @@ public class JCDAsyncTask extends AsyncTask {
 
             switch(task) {
 
+                case KEYCODE_GET_CONTRACTS_ALL_ACTIVITY:
+
+                    Intent ContractsActivity = new Intent(context, MainActivity.class);
+                    ContractsActivity.putExtra(KEY_CONTRACTS, list); // list = databaseJCD.getContracts()
+                    ((Activity)context).startActivityForResult(ContractsActivity, RQC_CONTRACTS);
+
+                    break;
+
                 case KEYCODE_GET_STATIONS_LIST_ACTIVITY:
 
                     Intent StationsListActivity = new Intent(context, StationsListActivity.class);
                     //StationsListActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
                     StationsListActivity.putExtra(KEY_CONTRACT, contract); // list = contract.getStations()
-                    //StationsListActivity.putExtra(KEY_ADAPTER_S, adapter); // adapter = stationsAdapter
                     ((Activity)context).startActivityForResult(StationsListActivity, RQC_STATIONS_L);
 
                     break;
@@ -375,7 +382,6 @@ public class JCDAsyncTask extends AsyncTask {
                     Intent StationsMapActivity = new Intent(context, StationsMapActivity.class);
                     //StationsListActivity.putExtra(KEY_STATIONS, list); // list = contract.getStations()
                     StationsMapActivity.putExtra(KEY_CONTRACT, contract); // list = contract.getStations()
-                    //StationsMapActivity.putExtra(KEY_MAP_, adapter); // adapter = contractsAdapter
                     ((Activity)context).startActivityForResult(StationsMapActivity, RQC_STATIONS_M);
 
                     break;

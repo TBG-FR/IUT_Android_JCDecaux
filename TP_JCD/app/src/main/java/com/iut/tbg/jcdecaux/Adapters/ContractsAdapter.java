@@ -62,7 +62,7 @@ public class ContractsAdapter extends ArrayAdapter<Contract> implements Serializ
 
         // Populate the data from the data object via the contractHolder object into the template view.
         contractHolder.name.setText(contract.getName());
-        contractHolder.cities.setText(contract.getCitiesToString());
+        contractHolder.cities.setText("(" + contract.getCitiesToString() + ")");
         contractHolder.country.setText(contract.getCountryCode());
 
         //convertView.setSelected(true);

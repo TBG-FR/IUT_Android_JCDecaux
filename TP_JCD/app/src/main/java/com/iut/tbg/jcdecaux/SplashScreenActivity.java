@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.iut.tbg.jcdecaux.Adapters.ContractsAdapter;
 import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
@@ -26,20 +27,21 @@ import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
 
 public class SplashScreenActivity extends Activity {
 
-    JCDecaux databaseJCD;
+    protected TextView tv_splash_txt;
+    protected JCDecaux databaseJCD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        /* TODO : Vérifier la source - Launcher, Contrats(List), Contrats(Maps) */
+        tv_splash_txt = findViewById(R.id.tv_splash_txt);
 
         /* TODO : IF FIRST_LAUNCH (NO CONTRACTS) ELSE IF RETURN (NO CONTRACTS) */
-
         databaseJCD = new JCDecaux();
-        //ContractsAdapter contractsAdapter = new ContractsAdapter(this, databaseJCD.getContracts());
-        new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts()/*, contractsAdapter*/);
+
+        tv_splash_txt.setText("Chargement des Contrats...");
+        new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts());
 
     }
 
@@ -69,13 +71,14 @@ public class SplashScreenActivity extends Activity {
                     case RESULT_ASK_LIST:
                         selectedContract = data.getIntExtra(KEY_CONTRACT, -1);
                         // TODO IF -1 OR NULL
-                        //StationsAdapter stationsAdapter = new StationsAdapter(this,  databaseJCD.getContracts().get(selectedContract).getStations());
-                        new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_LIST_ACTIVITY, databaseJCD.getContracts().get(selectedContract)/*, stationsAdapter*/);
+                        tv_splash_txt.setText("Chargement de la liste des Stations...");
+                        new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_LIST_ACTIVITY, databaseJCD.getContracts().get(selectedContract));
                         break;
 
                     case RESULT_ASK_MAP:
                         selectedContract = data.getIntExtra(KEY_CONTRACT, -1);
                         // TODO IF -1 OR NULL
+                        tv_splash_txt.setText("Chargement de la carte des Stations...");
                         new JCDAsyncTask(this).execute(KEYCODE_GET_STATIONS_MAP_ACTIVITY, databaseJCD.getContracts().get(selectedContract));
                         break;
 
@@ -99,6 +102,7 @@ public class SplashScreenActivity extends Activity {
                     // TODO : Case RESULT_OK, RESULT_CANCELED, etc and/or default Case ?
 
                     case RESULT_CLOSE:
+                        tv_splash_txt.setText("Chargement des Contrats...");
                         new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts()/*, contractsAdapter*/);
                         break;
 
@@ -122,6 +126,7 @@ public class SplashScreenActivity extends Activity {
                     // TODO : Case RESULT_OK, RESULT_CANCELED, etc and/or default Case ?
 
                     case RESULT_CLOSE:
+                        tv_splash_txt.setText("Chargement des Contrats...");
                         new JCDAsyncTask(this).execute(KEYCODE_GET_CONTRACTS_ALL_ACTIVITY, databaseJCD.getContracts());
                         break;
 

@@ -44,7 +44,7 @@ public class StationDetailsActivity extends Activity {
         tv_bikes_available = (TextView) findViewById(R.id.tv_bikes_available);
         tv_stands_available = (TextView) findViewById(R.id.tv_stands_available);
         tv_stands_total = (TextView) findViewById(R.id.tv_stands_total);
-        tv_last_update = (TextView) findViewById(R.id.tv_last_update);
+        tv_last_update = (TextView) findViewById(R.id.tv_last_update_value);
 
         btn_goto = (Button) findViewById(R.id.btn_goto) ;
         btn_goback = (Button) findViewById(R.id.btn_goback) ;

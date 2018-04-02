@@ -225,7 +225,7 @@
         android:layout_height="@dimen/height_fields"
 
         app:layout_constraintTop_toTopOf="@id/cv_station_dynamicdata"
-        app:layout_constraintBottom_toTopOf="@id/iv_stands_available_icon"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         app:layout_constraintLeft_toRightOf="@id/todo"
         android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
@@ -245,7 +245,7 @@
         android:layout_height="@dimen/height_fields"
 
         app:layout_constraintTop_toTopOf="@id/cv_station_dynamicdata"
-        app:layout_constraintBottom_toTopOf="@id/iv_stands_available_icon"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         app:layout_constraintLeft_toRightOf="@id/iv_bikes_available_icon"
         app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
@@ -341,7 +341,7 @@
         android:layout_height="@dimen/height_fields"
 
         app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
-        app:layout_constraintBottom_toTopOf="@id/btn_goto"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         app:layout_constraintLeft_toLeftOf="@id/cv_station_dynamicdata"
 
@@ -359,7 +359,7 @@
         android:layout_height="@dimen/height_fields"
 
         app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
-        app:layout_constraintBottom_toTopOf="@id/btn_goto"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         app:layout_constraintLeft_toRightOf="@+id/iv_last_update_icon"
         android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
@@ -378,7 +378,7 @@
         android:layout_height="@dimen/height_fields"
 
         app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
-        app:layout_constraintBottom_toTopOf="@id/btn_goto"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         app:layout_constraintLeft_toRightOf="@+id/tv_last_update_txt"
         app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
