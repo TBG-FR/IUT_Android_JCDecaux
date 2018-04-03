@@ -1,8 +1,15 @@
 package com.iut.tbg.jcdecaux.Models;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.iut.tbg.jcdecaux.Models.Contract;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
  * Stations de Lyon
@@ -12,7 +19,7 @@ import java.util.ArrayList;
  * https://api.jcdecaux.com/vls/v1/contracts?apiKey=1409f7759c6065f255490f32441e1cc5bc8922da
  */
 
-public class JCDecaux {
+public class JCDecaux implements Serializable {
 
     /* JCDecaux API KEY */
     public static final String API_KEY = "1409f7759c6065f255490f32441e1cc5bc8922da";

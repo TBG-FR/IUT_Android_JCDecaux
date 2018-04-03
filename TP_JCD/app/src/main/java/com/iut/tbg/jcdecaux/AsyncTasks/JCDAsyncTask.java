@@ -1,9 +1,14 @@
 package com.iut.tbg.jcdecaux.AsyncTasks;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.SupportMapFragment;
@@ -21,9 +26,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
 import static com.iut.tbg.jcdecaux.Models.JCDecaux.API_KEY;
 import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_CONTRACT;
 import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_CONTRACTS;
@@ -80,7 +87,15 @@ public class JCDAsyncTask extends AsyncTask {
             String str_JSON = "{ \"error\" : \"Nothing has been done\" }";
             list = (ArrayList<Contract>) params[1];
 
-            if(params.length > 2 && params[2] instanceof Boolean && (boolean) params[2] == false && list.isEmpty() == false) {
+            if(params.length > 3 && params[3] instanceof Boolean && (boolean) params[3] == true) {
+
+                //On passe directement au "résultat", on utilise les données qu'on possède (mode hors-ligne)
+                str_JSON = "{ \"success\" : \"List already filled and no force update, so nothing has been done\" }";
+                return str_JSON;
+
+
+            }
+            else if(params.length > 2 && params[2] instanceof Boolean && (boolean) params[2] == false && list.isEmpty() == false) {
 
                 //On passe directement au "résultat", la liste n'a pas besoin d'être récupérée une nouvelle fois
                 str_JSON = "{ \"success\" : \"List already filled and no force update, so nothing has been done\" }";
@@ -92,6 +107,9 @@ public class JCDAsyncTask extends AsyncTask {
 
                 // On vide la liste avant de l'actualiser
                 list.clear();
+
+                // Temporisation (IUT)try
+                try { Thread.sleep(1000); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
 
             }
 
@@ -196,6 +214,9 @@ public class JCDAsyncTask extends AsyncTask {
 
                 // On vide la liste avant de l'actualiser
                 list.clear();
+
+                // Temporisation (IUT)try
+                try { Thread.sleep(1000); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
 
             }
 
@@ -305,6 +326,9 @@ public class JCDAsyncTask extends AsyncTask {
 
                 // On vide la liste avant de l'actualiser
                 list.clear();
+
+                // Temporisation (IUT)try
+                try { Thread.sleep(1000); } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
 
             }
 

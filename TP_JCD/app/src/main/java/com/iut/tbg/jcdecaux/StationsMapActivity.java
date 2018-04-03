@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -198,8 +200,12 @@ public class StationsMapActivity extends FragmentActivity implements
                         .title(station.getName())
                         .snippet(station.getAddress() + "\n" + station.getAvailableBike() + " - " + station.getAvailableBikeStands())
                         .draggable(false)
+                        /*.alpha(0.7f)*/
                 );
                 marker.setTag(station);
+
+                // Changing marker icon
+                //marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_maps_bad));
 
                 markers.add(marker);
 
@@ -255,6 +261,7 @@ public class StationsMapActivity extends FragmentActivity implements
         // Keycode, Contract, Stations (list), Adapter
         //TODO
         //new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+        Toast.makeText(getApplicationContext(), "Fonctionnalité non ré-implémentée...", Toast.LENGTH_LONG).show();
 
     }
 

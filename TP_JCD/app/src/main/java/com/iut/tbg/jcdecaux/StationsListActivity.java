@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
 import com.iut.tbg.jcdecaux.Models.Contract;
@@ -58,6 +59,7 @@ public class StationsListActivity extends Activity {
         // Keycode, Contract, Stations (list), Adapter
         //TODO
         //new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+        Toast.makeText(getApplicationContext(), "Fonctionnalité non ré-implémentée...", Toast.LENGTH_LONG).show();
 
     }
 
