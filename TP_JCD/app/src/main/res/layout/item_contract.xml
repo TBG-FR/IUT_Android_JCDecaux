@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_buttons"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="@dimen/vertical_margin_between_elements"
-    android:layout_marginBottom="@dimen/vertical_margin_between_elements"
+    android:layout_marginTop="@dimen/vertical_margin_elements_small"
+    android:layout_marginBottom="@dimen/vertical_margin_elements_small"
     android:background="@drawable/bg_key"
     android:orientation="horizontal">
 
@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
 
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="@dimen/horizontal_margin_between_elements"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
 
         />
 
@@ -50,7 +50,7 @@
         android:layout_gravity="center_vertical"
 
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="@dimen/horizontal_margin_between_elements"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
 
         />
 
@@ -67,8 +67,8 @@
 
         app:layout_constraintLeft_toRightOf="@+id/contract_name"
         app:layout_constraintRight_toLeftOf="@id/contract_country"
-        android:layout_marginLeft="@dimen/horizontal_margin_between_elements"
-        android:layout_marginRight="@dimen/horizontal_margin_between_elements"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
 
         />
 

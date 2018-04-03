@@ -4,6 +4,7 @@
     package="com.iut.tbg.jcdecaux">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use

@@ -18,13 +18,13 @@
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="@dimen/horizontal_margin_between_elements"
-        android:layout_marginRight="@dimen/horizontal_margin_between_elements"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        android:layout_marginTop="@dimen/vertical_margin_between_elements"
-        android:layout_marginBottom="@dimen/vertical_margin_between_elements"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
 
         android:layout_centerInParent="true"
         />
