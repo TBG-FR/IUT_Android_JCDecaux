@@ -1,15 +1,39 @@
 <resources>
-    <string name="app_name">JCDecaux</string>
+    <string name="app_name">JCDecaux App</string>
 
-    <string name="tv_contracts_instructions">Sélectionnez votre Ville (son Contrat)</string>
+    <string name="tv_contracts_instructions">Sélectionnez une Ville pour continuer</string>
+
     <string name="tv_station">Station</string>
-    <string name="tv_station_update">Dernière mise à jour :</string>
+    <string name="tv_last_update_txt">Mis à jour le </string>
+    <string name="tv_station_status_open">STATION OUVERTE</string>
+    <string name="tv_station_status_close">STATION FERMÉE</string>
+    <string name="tv_station_status_unknown">ÉTAT INCONNU</string>
 
     <string name="btn_stations_refresh">Actualiser</string>
+    <string name="btn_stations_goto">Itinéraire</string>
     <string name="btn_stations_map">Carte des Stations</string>
     <string name="btn_stations_list">Liste des Stations</string>
 
     <string name="btn_navigation_goback">Retour</string>
     <string name="btn_navigation_exit">Quitter</string>
-    <string name="title_activity_stations_map">StationsMap</string>
+
+    <string name="alertdial_offline_message">Veuillez réessayer ou passer en mode hors-ligne.\nAttention, le mode hors-ligne sera actif jusqu\'au redémarrage de l\'appli, et utilise les données locales.\nSi aucune donnée n\'est affichée, il faudra vous connecter...</string>
+    <string name="alertdial_offline_title">Aucun connexion détectée...</string>
+    <string name="alertdial_offline_btn_ok">Mode hors-ligne</string>
+    <string name="alertdial_offline_btn_retry">Réessayer</string>
+
+    <string name="msg_data_backup_fail_title">Erreur - Impossible de Sauvegarder</string>
+    <string name="msg_data_backup_fail_content">Une erreur a été rencontrée lors de la sauvegarde de vos données :</string>
+    <string name="msg_data_restore_fail_title">Erreur - Impossible de Restaurer</string>
+    <string name="msg_data_restore_fail_content">Une erreur a été rencontrée lors de la restauration de vos données :</string>
+    <!-- <string name="msg_data_restore_success_title">Error - Unable to Backup</string> -->
+    <string name="msg_data_restore_success_content">Données restaurées avec succès !</string>
+    <!-- <string name="msg_data_restore_empty_title">Error - Unable to Backup</string> -->
+    <string name="msg_data_restore_empty_content">Données non trouvées, création...</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="finish">Fermer l\'App</string>
+
+    <string name="title_activity_stations_map">Stations Map Activity</string>
+
 </resources>

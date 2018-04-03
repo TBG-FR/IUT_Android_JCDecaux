@@ -1,34 +1,128 @@
 package com.iut.tbg.jcdecaux;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
-import com.iut.tbg.jcdecaux.Models.City;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.Models.Station;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.R.id.parent;
-import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
-import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_MAP_STATIONS_FROM_CONTRACT;
-import static com.iut.tbg.jcdecaux.MainActivity.KEY_CONTRACT;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_CONTRACT;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_STATION;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.RESULT_CLOSE;
 
-public class StationsMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class StationsMapActivity extends FragmentActivity implements
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnInfoWindowLongClickListener,
+        GoogleMap.OnMapLoadedCallback,
+        OnMapReadyCallback {
+
+//    //region Inner Class - Customized InfoWindowAdapter
+//
+//    /** Demonstrates customizing the info window and/or its contents. */
+//    class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+//
+//        // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
+//        // "title" and "snippet".
+//        private final View mWindow;
+//
+//        private final View mContents;
+//
+//        CustomInfoWindowAdapter() {
+//            mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+//            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+//        }
+//
+//        @Override
+//        public View getInfoWindow(Marker marker) {
+//            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
+//                // This means that getInfoContents will be called.
+//                return null;
+//            }
+//            render(marker, mWindow);
+//            return mWindow;
+//        }
+//
+//        @Override
+//        public View getInfoContents(Marker marker) {
+//            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
+//                // This means that the default info contents will be used.
+//                return null;
+//            }
+//            render(marker, mContents);
+//            return mContents;
+//        }
+//
+//        private void render(Marker marker, View view) {
+//            int badge;
+//            // Use the equals() method on a Marker to check for equals.  Do not use ==.
+//            if (marker.equals(mBrisbane)) {
+//                badge = R.drawable.badge_qld;
+//            } else if (marker.equals(mAdelaide)) {
+//                badge = R.drawable.badge_sa;
+//            } else if (marker.equals(mSydney)) {
+//                badge = R.drawable.badge_nsw;
+//            } else if (marker.equals(mMelbourne)) {
+//                badge = R.drawable.badge_victoria;
+//            } else if (marker.equals(mPerth)) {
+//                badge = R.drawable.badge_wa;
+//            } else if (marker.equals(mDarwin1)) {
+//                badge = R.drawable.badge_nt;
+//            } else if (marker.equals(mDarwin2)) {
+//                badge = R.drawable.badge_nt;
+//            } else if (marker.equals(mDarwin3)) {
+//                badge = R.drawable.badge_nt;
+//            } else if (marker.equals(mDarwin4)) {
+//                badge = R.drawable.badge_nt;
+//            } else {
+//                // Passing 0 to setImageResource will clear the image view.
+//                badge = 0;
+//            }
+//            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
+//
+//            String title = marker.getTitle();
+//            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+//            if (title != null) {
+//                // Spannable string allows us to edit the formatting of the text.
+//                SpannableString titleText = new SpannableString(title);
+//                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+//                titleUi.setText(titleText);
+//            } else {
+//                titleUi.setText("");
+//            }
+//
+//            String snippet = marker.getSnippet();
+//            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+//            if (snippet != null && snippet.length() > 12) {
+//                SpannableString snippetText = new SpannableString(snippet);
+//                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
+//                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12, snippet.length(), 0);
+//                snippetUi.setText(snippetText);
+//            } else {
+//                snippetUi.setText("");
+//            }
+//        }
+//    }
+//
+//    //endregion
 
     private GoogleMap mMap;
     private Spinner sp_city_selector;
+    private ArrayList<Marker> markers;
 
     private Contract contract;
     //private StationsAdapter stationsAdapter;
@@ -39,18 +133,21 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
 
         setContentView(R.layout.activity_stations_map);
 
-        sp_city_selector = (Spinner)findViewById(R.id.sp_city_selector);
+        //sp_city_selector = (Spinner)findViewById(R.id.sp_city_selector);
         contract = (Contract) getIntent().getSerializableExtra(KEY_CONTRACT);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            //mapFragment.getMapAsync(this); -> Now in AsyncTask
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        new JSONAsyncTask().execute(KEYCODE_MAP_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), mapFragment, this);
+        mapFragment.getMapAsync(this);
+
+        //region TODO : City Selector (Select only some Stations, the ones related to one of the Cities of the Contract
 
         /* TODO : Replace getCities */
+        /*
         ArrayAdapter<City> citySelectorAdapter = new ArrayAdapter<City>(StationsMapActivity.this, android.R.layout.simple_spinner_item, contract.getCities());
         citySelectorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_city_selector.setAdapter(citySelectorAdapter);
+        */
 
         /* TODO : Behavior
         sp_city_selector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -65,7 +162,7 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
                         // Whatever you want to happen when the second item gets selected
                         break;
                     case 2:
-                        // Whatever you want to happen when the thrid item gets selected
+                        // Whatever you want to happen when the third item gets selected
                         break;
 
                 }
@@ -73,9 +170,9 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
         });
         */
 
+        //endregion
+
     }
-
-
 
     /**
      * Manipulates the map once available.
@@ -88,32 +185,99 @@ public class StationsMapActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
-
-        /*
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
-
-        /* TODO : IMPROVE */
+        mMap.setOnMapLoadedCallback(this);
+        markers = new ArrayList<>();
 
         if(contract.getStations().isEmpty() == false) {
 
+            // Création des marqueurs
             for (Station station : contract.getStations()) {
 
-                mMap.addMarker(new MarkerOptions().position(new LatLng(station.getLatitude(), station.getLongitude())).title(station.getName()));
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(station.getLatitude(), station.getLongitude()))
+                        .title(station.getName())
+                        .snippet(station.getAddress() + "\n" + station.getAvailableBike() + " - " + station.getAvailableBikeStands())
+                        .draggable(false)
+                        /*.alpha(0.7f)*/
+                );
+                marker.setTag(station);
+
+                // Changing marker icon
+                //marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_bike_maps_bad));
+
+                markers.add(marker);
 
             }
 
-            Station first = contract.getStations().get(0);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(first.getLatitude(), first.getLongitude())));
-            mMap.moveCamera(CameraUpdateFactory.zoomIn());
-            mMap.moveCamera(CameraUpdateFactory.zoomIn());
-            mMap.moveCamera(CameraUpdateFactory.zoomIn());
-
         }
+
+        //mMap.setInfoWindowAdapter(new Custom); TODO
+        mMap.setOnInfoWindowClickListener(this);
+        mMap.setOnInfoWindowLongClickListener(this);
+
+    }
+
+    @Override
+    public void onMapLoaded() {
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for(Marker m : markers) { builder.include(m.getPosition()); }
+        LatLngBounds bounds =  builder.build();
+
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+
+    }
+
+    /** Called when the user clicks a marker. */
+    /*
+    public boolean onMarkerClick(final Marker marker) {
+
+        // TODO ?
+
+        return false;
+    }*/
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+        // TODO ?
+
+    }
+
+    @Override
+    public void onInfoWindowLongClick(Marker marker) {
+
+        Intent stationDetails = new Intent(StationsMapActivity.this, StationDetailsActivity.class);
+        stationDetails.putExtra(KEY_STATION, (Station) marker.getTag());
+        startActivity(stationDetails);
+
+    }
+
+    public void btn_Refresh(View v) {
+
+        // Keycode, Contract, Stations (list), Adapter
+        //TODO
+        //new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+        Toast.makeText(getApplicationContext(), "Fonctionnalité non ré-implémentée...", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void btn_GoBack(View v) {
+
+        finish();
+
+    }
+
+    @Override
+    public void finish() {
+
+        Intent closeApp = new Intent();
+        setResult(RESULT_CLOSE, closeApp);
+        closeApp.putExtra(KEY_CONTRACT, contract);
+        super.finish();
 
     }
 }

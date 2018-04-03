@@ -6,12 +6,16 @@ import java.util.ArrayList;
 public class Contract implements Serializable {
 
     //region Model.Contract : Attributes
+
     private String name;
     private String commercial_name;
     private String country_code;
     private ArrayList<City> cities;
     private ArrayList<Station> stations;
+
     //endregion
+
+    //region Model.Contract : Constructors
 
     public Contract(String name, String commercial_name, String country_code, ArrayList<String> cities, ArrayList<Station> stations) {
 
@@ -93,7 +97,10 @@ public class Contract implements Serializable {
 
     }
 
+    //endregion
+
     //region Model.Contract : Accessors
+
     public String getName() { return name; }
     public String getCommercialName() { return commercial_name; }
     public String getCountryCode() { return country_code; }
@@ -107,5 +114,17 @@ public class Contract implements Serializable {
         return cities.substring(0,cities.length()-2);
 
     }
+
     //endregion
+
+    //region Model.Contract : Mutators
+
+    public void setName(String name) { this.name = name; }
+    public void setCommercialName(String commercial_name) { this.commercial_name = commercial_name; }
+    public void setCountryCode(String country_code) { this.country_code = country_code; }
+    public void setCities(ArrayList<City> cities) { this.cities = cities; }
+    public void setStations(ArrayList<Station> stations) { this.stations = stations; }
+
+    //endregion
+
 }

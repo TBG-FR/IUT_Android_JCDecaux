@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iut.tbg.jcdecaux.SplashScreenActivity">
+    <!--android:background="@drawable/gradient_background" >-->
+
+    <ImageView
+        android:id="@+id/img_splash"
+        android:src="@drawable/ic_biker"
+
+        android:padding="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_splash_txt"
+        android:text="Texte à afficher..."
+
+        android:textSize="25sp"
+        android:textColor="#454545"
+        android:gravity="center_horizontal"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_medium"
+        />
+
+</android.support.constraint.ConstraintLayout>

@@ -6,103 +6,415 @@
     android:layout_height="match_parent"
     tools:context="com.iut.tbg.jcdecaux.StationDetailsActivity">
 
-    <!--
-        private int number;
-        private String name;
-        private String address;
-        private double latitude;
-        private double longitude;
-        private boolean banking;
-        private boolean bonus;
-        private Status status;
-        private int bike_stands;
-        private int available_bike_stands;
-        private int available_bike;
-        private Timestamp last_update;
-    -->
-
-    <!-- Stations Details : Basic informations -->
+    <!-- ===== ===== Station Details : Station Status ===== ===== -->
 
     <TextView
-        android:id="@+id/tv_station"
-        android:text="@string/tv_station"
+        android:id="@+id/tv_station_status"
+        android:background="@drawable/bg_station_status_unknown"
+        android:text="@string/tv_station_status_unknown"
+
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        android:gravity="center"
 
         android:layout_width="0dp"
-        android:layout_height="@dimen/height_fields"
-
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="50dp"
 
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_big"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_big"
+
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
 
         />
 
-    <TextView
-        android:id="@+id/tv_station_number"
-        android:text="0000"
+    <!-- ===== ===== Station Details : Basic Information ===== ===== -->
 
+    <!-- ===== Basic Information : "Container" View -->
+
+    <View
+        android:id="@+id/cv_station_information"
+        android:background="@drawable/borders"
         android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/tv_station_name"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_bonus_icon"
+        app:layout_constraintStart_toStartOf="@+id/tv_station_name"
+        app:layout_constraintEnd_toEndOf="@+id/tv_station_address"
+        />
+
+    <!-- ===== Basic Information : Name and Location -->
+
+    <!--<TextView
+        android:id="@+id/tv_station_number"
+        android:text="2010"
+
+        android:fontFamily="serif-monospace"
+        android:gravity="center|bottom"
+
+        android:layout_width="50dp"
         android:layout_height="@dimen/height_fields"
 
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_station"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_station_name"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
 
-        app:layout_constraintLeft_toRightOf="@+id/tv_station"
-        app:layout_constraintRight_toRightOf="parent"
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_status"
+        android:layout_marginTop="@dimen/vertical_margin_elements_big"
+        />-->
 
     <TextView
         android:id="@+id/tv_station_name"
-        android:text="0000"
+        android:text="02010 - CONFLUENCE DARSE"
+
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:gravity="center"
 
         android:layout_width="0dp"
         android:layout_height="@dimen/height_fields"
 
-        app:layout_constraintTop_toBottomOf="@id/tv_station_number"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_medium"
 
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_status"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
         />
 
     <TextView
         android:id="@+id/tv_station_address"
-        android:text="0000"
+        android:text="ANGLE ALEE ANDRE MURE ET QUAI ANTOINE RIBOUD"
+
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:gravity="center|top"
 
         android:layout_width="0dp"
-        android:layout_height="@dimen/height_fields"
+        android:layout_height="@dimen/height_buttons"
 
         app:layout_constraintTop_toBottomOf="@id/tv_station_name"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_medium"
 
         />
 
-    <!-- Station Details : Last update -->
+    <!-- ===== Basic Information : Banking and Bonus -->
 
-    <TextView
-        android:id="@+id/tv_station_update"
-        android:text="@string/tv_station_update"
+    <ImageView
+        android:id="@+id/iv_banking_icon"
+        android:src="@mipmap/ic_banking"
 
-        android:layout_width="0dp"
-        android:layout_height="@dimen/height_fields"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/height_buttons"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_station_address"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/iv_banking_value"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+        android:layout_marginRight="0dp"
 
         />
 
-    <TextView
-        android:id="@+id/tv_station_update_time"
-        android:text="24-01-2018 05:42"
+    <ImageView
+        android:id="@+id/iv_banking_value"
+        android:src="@mipmap/ic_no"
 
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="@dimen/height_fields"
 
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_station_update"
+        app:layout_constraintTop_toTopOf="@id/iv_banking_icon"
+        app:layout_constraintBottom_toBottomOf="@id/iv_banking_icon"
 
-        app:layout_constraintLeft_toRightOf="@+id/tv_station_update"
+
+        app:layout_constraintLeft_toRightOf="@+id/iv_banking_icon"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintRight_toLeftOf="@+id/iv_bonus_icon"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_big"
+
+        />
+
+    <ImageView
+        android:id="@+id/iv_bonus_icon"
+        android:src="@mipmap/ic_bonus"
+
+        android:layout_width="70dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_station_address"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
+
+        app:layout_constraintLeft_toRightOf="@+id/iv_banking_value"
+        app:layout_constraintRight_toLeftOf="@+id/iv_bonus_value"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_big"
+        android:layout_marginRight="0dp"
+
+        />
+
+    <ImageView
+        android:id="@+id/iv_bonus_value"
+        android:src="@mipmap/ic_no"
+
+        android:layout_width="50dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toTopOf="@id/iv_bonus_icon"
+        app:layout_constraintBottom_toBottomOf="@id/iv_bonus_icon"
+
+        app:layout_constraintLeft_toRightOf="@+id/iv_bonus_icon"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_medium"
 
+        />
+
+    <!-- ===== ===== Station Details : Dynamic Data ===== ===== -->
+
+    <!-- ===== Dynamic Data : "Container" View -->
+
+    <View
+        android:id="@+id/cv_station_dynamicdata"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/cv_station_information"
+        app:layout_constraintBottom_toBottomOf="@+id/todo"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/horizontal_margin_elements_medium"
+        android:layout_marginEnd="@dimen/horizontal_margin_elements_medium"
+
+        />
+
+    <!-- ===== Dynamic Data : (TODO : Map) ===== -->
+
+    <ImageView
+        android:id="@+id/todo"
+        android:src="@drawable/ic_biker"
+
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+
+        app:layout_constraintTop_toTopOf="@id/cv_station_dynamicdata"
+
+        app:layout_constraintLeft_toLeftOf="@id/cv_station_dynamicdata"
+        />
+
+    <!-- ===== Dynamic Data : Available Bikes ===== -->
+
+    <ImageView
+        android:id="@+id/iv_bikes_available_icon"
+        android:src="@mipmap/ic_available_bike"
+
+        android:layout_width="50dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toTopOf="@id/cv_station_dynamicdata"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
+
+        app:layout_constraintLeft_toRightOf="@id/todo"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_bikes_available"
+        android:text="35"
+
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:gravity="center"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toTopOf="@id/cv_station_dynamicdata"
+        android:layout_marginTop="@dimen/vertical_margin_elements_medium"
+
+        app:layout_constraintLeft_toRightOf="@id/iv_bikes_available_icon"
+        app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+
+        />
+
+    <!-- ===== Dynamic Data : Available Bike Stands ===== -->
+
+    <ImageView
+        android:id="@+id/iv_stands_available_icon"
+        android:src="@mipmap/ic_available_bike_stands"
+
+        android:layout_width="50dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/iv_bikes_available_icon"
+        app:layout_constraintBottom_toTopOf="@+id/iv_stands_total_icon"
+
+        app:layout_constraintLeft_toRightOf="@id/todo"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_stands_available"
+        android:text="45"
+
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="17dp"
+
+        android:gravity="center"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/iv_bikes_available_icon"
+        app:layout_constraintBottom_toTopOf="@+id/iv_stands_total_icon"
+
+        app:layout_constraintLeft_toRightOf="@id/iv_bikes_available_icon"
+        app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+
+        />
+
+    <!-- ===== Dynamic Data : Total Bike Stands ===== -->
+
+    <ImageView
+        android:id="@+id/iv_stands_total_icon"
+        android:src="@mipmap/ic_bike_stands"
+
+        android:layout_width="50dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/iv_stands_available_icon"
+        app:layout_constraintBottom_toBottomOf="@id/cv_station_dynamicdata"
+
+        app:layout_constraintLeft_toRightOf="@id/todo"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_stands_total"
+        android:text="150"
+
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="17dp"
+
+        android:gravity="center"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/iv_stands_available_icon"
+        app:layout_constraintBottom_toBottomOf="@id/cv_station_dynamicdata"
+
+        app:layout_constraintLeft_toRightOf="@id/iv_bikes_available_icon"
+        app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+
+        />
+
+    <!-- ===== ===== Station Details : Last Update ===== ===== -->
+
+    <ImageView
+        android:id="@+id/iv_last_update_icon"
+        android:src="@mipmap/ic_last_update"
+
+        android:layout_width="50dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+
+        app:layout_constraintLeft_toLeftOf="@id/cv_station_dynamicdata"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_last_update_txt"
+        android:text="@string/tv_last_update_txt"
+
+        android:gravity="right|center"
+        android:textStyle="bold"
+        android:textSize="15sp"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+
+        app:layout_constraintLeft_toRightOf="@+id/iv_last_update_icon"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_medium"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_last_update_value"
+        android:text="24 Janvier 2018 à 05h42"
+
+        android:gravity="left|center"
+        android:textStyle="bold"
+        android:textSize="15sp"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_fields"
+
+        app:layout_constraintTop_toBottomOf="@id/cv_station_dynamicdata"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+
+        app:layout_constraintLeft_toRightOf="@+id/tv_last_update_txt"
+        app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+
+        />
+
+    <!-- ===== ===== Station Details : Buttons ===== ===== -->
+
+    <Button
+        android:id="@+id/btn_goto"
+        android:text="@string/btn_stations_goto"
+        android:onClick="btn_GoTo"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toLeftOf="@id/cv_station_dynamicdata"
+        app:layout_constraintRight_toLeftOf="@id/btn_goback"
+
+        app:layout_constraintTop_toBottomOf="@id/iv_last_update_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn_goback"
+        android:text="@string/btn_navigation_goback"
+        android:onClick="btn_GoBack"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toRightOf="@id/btn_goto"
+        app:layout_constraintRight_toRightOf="@id/cv_station_dynamicdata"
+
+        app:layout_constraintBaseline_toBaselineOf="@id/btn_goto"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
 </android.support.constraint.ConstraintLayout>

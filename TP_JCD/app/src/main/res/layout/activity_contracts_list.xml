@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iut.tbg.jcdecaux.ContractsListActivity">
+
+    <TextView
+        android:id="@+id/tv_contracts"
+        android:text="@string/tv_contracts_instructions"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:gravity="center"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lv_contracts"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+        />
+
+    <ListView
+        android:id="@+id/lv_contracts"
+        android:choiceMode="singleChoice"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_contracts"
+        app:layout_constraintBottom_toTopOf="@+id/btn_stations_map"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+        />
+
+    <Button
+        android:id="@+id/btn_stations_map"
+        android:text="@string/btn_stations_map"
+        android:onClick="btn_StationsMap"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/lv_contracts"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginStart="@dimen/horizontal_margin_elements_small"
+        android:layout_marginEnd="@dimen/horizontal_margin_elements_small"
+        />
+
+    <Button
+        android:id="@+id/btn_stations_list"
+        android:text="@string/btn_stations_list"
+        android:onClick="btn_StationsList"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/btn_stations_map"
+        app:layout_constraintBottom_toTopOf="@+id/btn_refresh"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+        />
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:text="@string/btn_stations_refresh"
+        android:onClick="btn_Refresh"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_goback"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/btn_stations_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/vertical_margin_elements_small"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+        />
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:text="@string/btn_navigation_exit"
+        android:onClick="btn_Exit"
+
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_buttons"
+
+        app:layout_constraintLeft_toRightOf="@+id/btn_refresh"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/horizontal_margin_elements_small"
+        android:layout_marginRight="@dimen/horizontal_margin_elements_small"
+
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_refresh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/vertical_margin_elements_small"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

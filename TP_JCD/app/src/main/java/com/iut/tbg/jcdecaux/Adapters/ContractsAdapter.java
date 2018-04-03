@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ContractsAdapter extends ArrayAdapter<Contract> {
+public class ContractsAdapter extends ArrayAdapter<Contract> implements Serializable {
 
     ArrayList<Contract> contracts;
 
@@ -61,7 +62,7 @@ public class ContractsAdapter extends ArrayAdapter<Contract> {
 
         // Populate the data from the data object via the contractHolder object into the template view.
         contractHolder.name.setText(contract.getName());
-        contractHolder.cities.setText(contract.getCitiesToString());
+        contractHolder.cities.setText("(" + contract.getCitiesToString() + ")");
         contractHolder.country.setText(contract.getCountryCode());
 
         //convertView.setSelected(true);
@@ -91,7 +92,11 @@ public class ContractsAdapter extends ArrayAdapter<Contract> {
     @Override
     public int getCount() {
 
-        return this.contracts.size();
+        // TODO : Check if really useful ? (Avoid error/crashes but... ?)
+
+        if(this.contracts != null && this.contracts.isEmpty() == false) { return this.contracts.size(); }
+
+        else { return -1; }
 
     }
 

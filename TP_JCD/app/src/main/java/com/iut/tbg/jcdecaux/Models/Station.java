@@ -2,16 +2,19 @@ package com.iut.tbg.jcdecaux.Models;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class Station implements Serializable {
 
-    private enum Status {
+    public enum Status {
         OPEN,
         CLOSE,
         UNKNOWN,
     }
 
     //region Model.Station : Attributes
+
     private int number;
     private String name;
     private String address;
@@ -24,7 +27,10 @@ public class Station implements Serializable {
     private int available_bike_stands;
     private int available_bike;
     private Timestamp last_update;
+
     //endregion
+
+    //region Model.Station : Constructors
 
     // Constructor : Static data only
     public Station(int number, String name, String address, double latitude, double longitude, boolean banking, boolean bonus)  {
@@ -60,6 +66,8 @@ public class Station implements Serializable {
 
     }
 
+    //endregion
+
     //region Model.Station : Accessors
 
     // Static data
@@ -73,10 +81,10 @@ public class Station implements Serializable {
 
     // Dynamic data
     public Status getStatus() { return status; }
-    public int getBike_stands() { return bike_stands; }
-    public int getAvailable_bike_stands() { return available_bike_stands; }
-    public int getAvailable_bike() { return available_bike; }
-    public Timestamp getLast_update() { return last_update; }
+    public int getBikeStands() { return bike_stands; }
+    public int getAvailableBikeStands() { return available_bike_stands; }
+    public int getAvailableBike() { return available_bike; }
+    public Timestamp getLastUpdate() { return last_update; }
 
     public String getStatusToString() {
 
@@ -89,14 +97,17 @@ public class Station implements Serializable {
                 return "CLOSE";
 
             case UNKNOWN:
-                return "UNKNOW";
 
             default:
-                return "UNKNOW";
+                return "UNKNOWN";
 
         }
 
     }
+
+    public String getLastUpdateToShortString() { return new SimpleDateFormat("dd/MM/yy HH:mm", Locale.FRANCE).format(last_update); }
+    public String getLastUpdateToLongString() { return new SimpleDateFormat("dd MMMM yyyy à HH'h'mm", Locale.FRANCE).format(last_update); }
+
     //endregion
 
     //region Model.Station : Mutators
@@ -136,7 +147,10 @@ public class Station implements Serializable {
         }
 
     }
+
     //endregion
+
+    //region Model.Station : Methods
 
     // Refresh Dynamic data (with status as a String)
     public void refresh(String status, int bike_stands, int available_bike_stands, int available_bike, long last_update) {
@@ -173,6 +187,8 @@ public class Station implements Serializable {
         this.available_bike = available_bike;
         this.last_update = new Timestamp(last_update);
     }
+
+    //endregion
 
 }
 
