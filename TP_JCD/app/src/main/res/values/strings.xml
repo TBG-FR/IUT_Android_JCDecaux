@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">JCDecaux</string>
+    <string name="app_name">JCDecaux App</string>
 
-    <string name="tv_contracts_instructions">Sélectionnez votre Ville (son Contrat)</string>
+    <string name="tv_contracts_instructions">Sélectionnez une Ville pour continuer</string>
+
     <string name="tv_station">Station</string>
     <string name="tv_last_update_txt">Mis à jour le </string>
     <string name="tv_station_status_open">STATION OUVERTE</string>

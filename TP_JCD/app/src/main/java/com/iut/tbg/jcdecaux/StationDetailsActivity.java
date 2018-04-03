@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.iut.tbg.jcdecaux.Models.Station;
 
-import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATION;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_STATION;
 
 public class StationDetailsActivity extends Activity {
 

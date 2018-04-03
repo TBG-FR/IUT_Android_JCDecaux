@@ -3,6 +3,7 @@ package com.iut.tbg.jcdecaux.Models;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class Station implements Serializable {
 
@@ -96,17 +97,16 @@ public class Station implements Serializable {
                 return "CLOSE";
 
             case UNKNOWN:
-                return "UNKNOW";
 
             default:
-                return "UNKNOW";
+                return "UNKNOWN";
 
         }
 
     }
 
-    public String getLastUpdateToShortString() { return new SimpleDateFormat("dd/MM/yy HH:mm").format(last_update); }
-    public String getLastUpdateToLongString() { return new SimpleDateFormat("dd MMMM yyyy à HH/hmm").format(last_update); }
+    public String getLastUpdateToShortString() { return new SimpleDateFormat("dd/MM/yy HH:mm", Locale.FRANCE).format(last_update); }
+    public String getLastUpdateToLongString() { return new SimpleDateFormat("dd MMMM yyyy à HH'h'mm", Locale.FRANCE).format(last_update); }
 
     //endregion
 

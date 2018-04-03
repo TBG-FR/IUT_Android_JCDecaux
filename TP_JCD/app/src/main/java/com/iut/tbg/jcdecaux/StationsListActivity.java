@@ -10,14 +10,11 @@ import android.widget.ListView;
 
 import com.iut.tbg.jcdecaux.Adapters.StationsAdapter;
 import com.iut.tbg.jcdecaux.Models.Contract;
-import com.iut.tbg.jcdecaux.Models.Station;
+import com.iut.tbg.jcdecaux.Models.JCDecaux;
 
-import java.util.ArrayList;
-
-import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATION;
-import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_CLOSE;
-import static com.iut.tbg.jcdecaux.JSONAsyncTask.KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT;
-import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_STATION;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.RESULT_CLOSE;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_CONTRACT;
 
 public class StationsListActivity extends Activity {
 

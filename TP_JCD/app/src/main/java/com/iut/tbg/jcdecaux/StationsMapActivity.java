@@ -3,7 +3,7 @@ package com.iut.tbg.jcdecaux;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,15 +14,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.iut.tbg.jcdecaux.Models.City;
 import com.iut.tbg.jcdecaux.Models.Contract;
 import com.iut.tbg.jcdecaux.Models.Station;
 
 import java.util.ArrayList;
 
-import static com.iut.tbg.jcdecaux.JCDecaux.KEY_CONTRACT;
-import static com.iut.tbg.jcdecaux.JCDecaux.KEY_STATION;
-import static com.iut.tbg.jcdecaux.JCDecaux.RESULT_CLOSE;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_CONTRACT;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.KEY_STATION;
+import static com.iut.tbg.jcdecaux.Models.JCDecaux.RESULT_CLOSE;
 
 public class StationsMapActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowClickListener,
@@ -132,7 +131,7 @@ public class StationsMapActivity extends FragmentActivity implements
 
         setContentView(R.layout.activity_stations_map);
 
-        sp_city_selector = (Spinner)findViewById(R.id.sp_city_selector);
+        //sp_city_selector = (Spinner)findViewById(R.id.sp_city_selector);
         contract = (Contract) getIntent().getSerializableExtra(KEY_CONTRACT);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -142,9 +141,11 @@ public class StationsMapActivity extends FragmentActivity implements
         //region TODO : City Selector (Select only some Stations, the ones related to one of the Cities of the Contract
 
         /* TODO : Replace getCities */
+        /*
         ArrayAdapter<City> citySelectorAdapter = new ArrayAdapter<City>(StationsMapActivity.this, android.R.layout.simple_spinner_item, contract.getCities());
         citySelectorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_city_selector.setAdapter(citySelectorAdapter);
+        */
 
         /* TODO : Behavior
         sp_city_selector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -186,15 +187,6 @@ public class StationsMapActivity extends FragmentActivity implements
         mMap = googleMap;
         mMap.setOnMapLoadedCallback(this);
         markers = new ArrayList<>();
-
-        /*
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
-
-        /* TODO : IMPROVE */
 
         if(contract.getStations().isEmpty() == false) {
 
@@ -255,6 +247,20 @@ public class StationsMapActivity extends FragmentActivity implements
         Intent stationDetails = new Intent(StationsMapActivity.this, StationDetailsActivity.class);
         stationDetails.putExtra(KEY_STATION, (Station) marker.getTag());
         startActivity(stationDetails);
+
+    }
+
+    public void btn_Refresh(View v) {
+
+        // Keycode, Contract, Stations (list), Adapter
+        //TODO
+        //new JSONAsyncTask().execute(KEYCODE_LISTVIEW_STATIONS_FROM_CONTRACT, contract.getName(), contract.getStations(), stationsAdapter);
+
+    }
+
+    public void btn_GoBack(View v) {
+
+        finish();
 
     }
 

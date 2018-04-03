@@ -82,8 +82,6 @@ public class StationsAdapter extends ArrayAdapter<Station> implements Serializab
                 break;
 
             case "UNKNOWN":
-                stationHolder.status.setImageResource(R.mipmap.status_unknown);
-                break;
 
             default:
                 stationHolder.status.setImageResource(R.mipmap.status_unknown);
