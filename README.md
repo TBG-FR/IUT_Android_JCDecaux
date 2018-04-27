@@ -2,7 +2,20 @@
 
 **Conception d'une application Android utilisant l'API JCDecaux, avec diverses fonctionnalités**
 
-# Travail demandé
+## Captures d'écrans
+
+**L'API JCDecaux semble actuellement avoir un problème, ne me permettant pas de prendre d'autres captures d'écran pour le moment...**
+
+#### Écran de chargement
+![JCDecaux App - Splash Screen](ressources/screenshots/Screenshot_SplashScreen1.png)
+
+#### Message "Hors-Ligne"
+![JCDecaux App - Offline Message](ressources/screenshots/Screenshot_OfflineMessage.png)
+
+#### Liste des contrats
+![JCDecaux App - Contracts List](ressources/screenshots/Screenshot_ContractsList.png)
+
+## Travail demandé
 
 Réaliser une application permettant d'afficher sous forme de liste et sur une carte, les différentes stations de vélos en libre service de la ville de Lyon (et éventuellement d’autres villes), en utilisant l’API proposée par JCDecaux.
 
