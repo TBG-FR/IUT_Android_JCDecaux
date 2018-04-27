@@ -1,5 +1,6 @@
 # IUT_Android_JCDecaux
-Conception d'une application Android utilisant l'API JCDecaux
+
+**Conception d'une application Android utilisant l'API JCDecaux, avec diverses fonctionnalités**
 
 # Travail demandé
 
